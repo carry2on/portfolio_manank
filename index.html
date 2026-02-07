@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manank Pandya // Full Stack Developer & AI Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #06b6d4;
+            --neon-purple: #a855f7;
+            --neon-pink: #ec4899;
+            --bg-dark: #020617;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: var(--bg-dark); 
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.08) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 85%);
+            z-index: -1;
+            animation: grid-move 25s linear infinite;
+        }
+
+        @keyframes grid-move {
+            from { transform: translate(0, 0); }
+            to { transform: translate(60px, 60px); }
+        }
+
+        /* Floating Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: -1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 { width: 400px; height: 400px; background: var(--neon-cyan); top: -100px; right: -100px; animation-delay: 0s; }
+        .orb-2 { width: 350px; height: 350px; background: var(--neon-purple); bottom: -100px; left: -100px; animation-delay: 5s; }
+        .orb-3 { width: 300px; height: 300px; background: var(--neon-pink); top: 50%; right: 10%; animation-delay: 10s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Enhanced Bento Cards */
+        .bento-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .bento-card:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
+            transform: translateY(-4px);
+        }
+
+        /* Glitch Text */
+        .glitch-text { position: relative; animation: glitch 3s infinite; }
+        @keyframes glitch {
+            0%, 90%, 100% { text-shadow: 0 0 transparent; }
+            91% { text-shadow: 2px 0 var(--neon-cyan), -2px 0 var(--neon-purple); transform: translate(-1px, 0); }
+            92% { text-shadow: -2px 0 var(--neon-cyan), 2px 0 var(--neon-purple); transform: translate(1px, 0); }
+        }
+
+        /* Badge */
+        .cyber-badge {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        /* Navbar */
+        nav.scrolled {
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Skill Pills */
+        .skill-pill {
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .skill-pill:hover {
+            transform: translateY(-2px);
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+
+        /* Button */
+        .cyber-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .cyber-button::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .cyber-button:hover::after { left: 100%; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <nav id="navbar" class="fixed w-full z-50 px-6 md:px-12 py-4 md:py-6 flex justify-between items-center transition-all">
+        <div class="text-xl md:text-2xl font-bold tracking-[0.3em] text-white z-50">
+            MANANK<span class="text-cyan-400">.DEV</span>
+        </div>
+        
+        <div class="hidden md:flex gap-8 lg:gap-12 text-[10px] uppercase tracking-widest font-semibold opacity-70">
+            <a href="#home" class="hover:text-cyan-400 hover:opacity-100 transition-all">Home</a>
+            <a href="#projects" class="hover:text-cyan-400 hover:opacity-100 transition-all">Projects</a>
+            <a href="#education" class="hover:text-cyan-400 hover:opacity-100 transition-all">Education</a>
+            <a href="#skills" class="hover:text-cyan-400 hover:opacity-100 transition-all">Skills</a>
+            <a href="#contact" class="hover:text-cyan-400 hover:opacity-100 transition-all">Contact</a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden text-cyan-400 z-50 focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8">
+            <a href="#home" class="mobile-link text-2xl font-bold tracking-widest hover:text-cyan-400">HOME</a>
+            <a href="#projects" class="mobile-link text-2xl font-bold tracking-widest hover:text-cyan-400">PROJECTS</a>
+            <a href="#education" class="mobile-link text-2xl font-bold tracking-widest hover:text-cyan-400">EDUCATION</a>
+            <a href="#skills" class="mobile-link text-2xl font-bold tracking-widest hover:text-cyan-400">SKILLS</a>
+            <a href="#contact" class="mobile-link text-2xl font-bold tracking-widest hover:text-cyan-400">CONTACT</a>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen pt-24 md:pt-40 px-6 md:px-12 max-w-7xl mx-auto flex flex-col justify-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <div class="lg:col-span-8 bento-card rounded-[2rem] md:rounded-[3rem] p-8 md:p-14 flex flex-col justify-end min-h-[500px] relative overflow-hidden" data-aos="zoom-out">
+                
+                <div class="relative z-20">
+                    <div class="cyber-badge px-3 py-1 w-fit mb-6 rounded-full font-bold">
+                        [ Open to Work ]
+                    </div>
+                    <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold leading-none tracking-tighter mb-6">
+                        ENGINEERING <br> 
+                        <span class="glitch-text text-cyan-400">INTELLIGENCE</span>
+                    </h1>
+                    <p class="text-slate-400 text-base md:text-lg max-w-xl mb-8 leading-relaxed">
+                        Full Stack Developer & AI Engineer crafting scalable web ecosystems and intelligent algorithms. Currently in 8th Semester, transforming complex problems into elegant code.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="cyber-button px-6 md:px-8 py-3 md:py-4 bg-cyan-500 text-black font-bold rounded-xl hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition text-sm md:text-base">
+                            View Projects
+                        </a>
+                        <a href="./resume.pdf" download="Manank_Pandya_Resume.pdf" class="cyber-button px-6 md:px-8 py-3 md:py-4 bg-transparent border border-cyan-500/30 text-cyan-400 font-bold rounded-xl hover:bg-cyan-500/10 transition text-sm md:text-base">
+                            Download Resume ⬇
+                        </a>
+                    </div>
+                </div>
+
+                <img src="image_2.png" alt="Manank Pandya" class="absolute right-0 bottom-0 w-3/4 md:w-1/2 lg:w-2/5 xl:w-1/3 opacity-40 filter mix-blend-screen z-0 pointer-events-none">
+            </div>
+            
+            <div class="lg:col-span-4 bento-card rounded-[2rem] md:rounded-[3rem] p-8 flex flex-col items-center justify-center text-center" data-aos="fade-left" data-aos-delay="100">
+                <div class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-400/30 mb-6 flex items-center justify-center text-4xl md:text-5xl relative overflow-hidden">
+                    <span class="relative z-10">👨‍💻</span>
+                    <div class="absolute inset-0 bg-cyan-400/10 animate-pulse"></div>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold mb-1">Manank Pandya</h3>
+                <p class="text-xs md:text-sm text-slate-400 mb-6">Ahmedabad, Gujarat</p>
+                <div class="w-full border-t border-white/10 my-6"></div>
+                <div class="grid grid-cols-2 gap-4 w-full text-left">
+                    <div>
+                        <span class="text-[10px] md:text-xs text-slate-500 uppercase tracking-wider block">Status</span>
+                        <span class="text-cyan-400 font-bold text-sm md:text-base">B.Tech Sem 8</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] md:text-xs text-slate-500 uppercase tracking-wider block">CGPA</span>
+                        <span class="text-cyan-400 font-bold text-sm md:text-base">8.88</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-bold tracking-[0.5em] uppercase mb-12 opacity-50 text-center md:text-left" data-aos="fade-right">_Repositories</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="md:col-span-2 bento-card rounded-[2.5rem] p-8 md:p-12 min-h-[400px] flex flex-col justify-between group" data-aos="fade-up">
+                <div>
+                    <div class="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="cyber-badge px-3 py-1 rounded-full text-[10px]">MERN Stack</span>
+                            <span class="cyber-badge px-3 py-1 rounded-full text-[10px] border-purple-500 text-purple-400">Capstone</span>
+                        </div>
+                        <span class="text-5xl opacity-20 group-hover:opacity-100 transition-opacity duration-500 hidden md:block">🌉</span>
+                    </div>
+                    <h4 class="text-3xl md:text-5xl font-bold tracking-tighter mb-4 text-white">DevBridge</h4>
+                    <p class="text-slate-400 max-w-lg leading-relaxed text-base md:text-lg">
+                        A comprehensive social networking ecosystem for developers. Bridging global talent through real-time collaboration, code sharing, and community discovery.
+                    </p>
+                </div>
+                <div class="flex gap-4 mt-8 pt-8 border-t border-white/5">
+                    <button class="text-sm font-bold text-cyan-400 hover:text-white transition">View Live Demo ↗</button>
+                    <button class="text-sm font-bold text-slate-400 hover:text-white transition">GitHub Repo ↗</button>
+                </div>
+            </div>
+
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between bg-gradient-to-b from-cyan-900/10 to-transparent" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="text-4xl mb-4">✨</div>
+                    <h4 class="text-2xl font-bold mb-3 tracking-tight">AI Image Enhancer</h4>
+                    <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                        Sleek React application using AI algorithms to effortlessly improve image clarity, sharpness, and resolution.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[10px] text-cyan-400 border border-cyan-400/30 px-2 py-1 rounded">React</span>
+                        <span class="text-[10px] text-cyan-400 border border-cyan-400/30 px-2 py-1 rounded">Artificial Intelligence</span>
+                    </div>
+                </div>
+                <button class="w-full py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs uppercase tracking-widest transition">Source Code</button>
+            </div>
+
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                    <div class="text-4xl mb-4">✅</div>
+                    <h4 class="text-2xl font-bold mb-3">Task Vista</h4>
+                    <p class="text-sm text-slate-400 mb-4">
+                        Role-based task management app using React.js and Tailwind CSS. Enables admin assignment and local state management without backend.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] font-bold text-purple-400">React.js</span>
+                    <span class="text-[10px] font-bold text-slate-400">Tailwind</span>
+                </div>
+            </div>
+
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="300">
+                <div>
+                    <div class="text-4xl mb-4">🎓</div>
+                    <h4 class="text-2xl font-bold mb-3">Student Portal</h4>
+                    <p class="text-sm text-slate-400 mb-4">
+                        A robust platform for accessing study materials and comprehensive video resources, optimized for last-minute revision.
+                    </p>
+                </div>
+                <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-purple-500 w-[70%]"></div>
+                </div>
+            </div>
+
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="400">
+                <div>
+                    <div class="text-4xl mb-4">🔒</div>
+                    <h4 class="text-2xl font-bold mb-3">Secure Billing</h4>
+                    <p class="text-sm text-slate-400 mb-4">
+                        Python/Tkinter automation for billing with integrated OTP security protocols and MySQL database management.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] font-bold text-cyan-400">Python</span>
+                    <span class="text-[10px] font-bold text-cyan-400">MySQL</span>
+                </div>
+            </div>
+
+            <div class="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bento-card rounded-[2rem] p-6 flex items-center gap-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center text-3xl shrink-0">🎧</div>
+                    <div>
+                        <h4 class="text-xl font-bold">Spotify Clone</h4>
+                        <p class="text-xs text-slate-400 mt-1">Music player web apk created in pure HTML, CSS, JS.</p>
+                    </div>
+                </div>
+
+                <div class="bento-card rounded-[2rem] p-6 flex items-center gap-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-16 h-16 bg-pink-500/20 rounded-2xl flex items-center justify-center text-3xl shrink-0">🧘‍♀️</div>
+                    <div>
+                        <h4 class="text-xl font-bold">Yoga Web</h4>
+                        <p class="text-xs text-slate-400 mt-1">Virtual wellness platform built for remote health access.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="education" class="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-bold tracking-[0.5em] uppercase mb-12 opacity-50 text-center md:text-left" data-aos="fade-right">_Academic_Log</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <div class="md:col-span-2 bento-card rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-start md:items-center bg-gradient-to-r from-cyan-900/10 to-transparent" data-aos="fade-up">
+                <div class="mb-8 md:mb-0">
+                    <span class="text-cyan-400 text-xs font-bold tracking-widest uppercase mb-2 block">Current Education</span>
+                    <h3 class="text-3xl md:text-4xl font-bold mb-2">Silver Oak University</h3>
+                    <p class="text-xl text-slate-300 mb-1">Engineering College</p>
+                    <p class="text-sm text-slate-400 mb-4">B.Tech in Computer Engineering • 4th Year</p>
+                </div>
+                <div class="flex flex-col items-center w-full md:w-auto">
+                    <div class="w-32 h-32 rounded-full border-4 border-cyan-500/30 flex items-center justify-center relative">
+                        <span class="text-4xl font-bold text-white">8.88</span>
+                        <span class="absolute -bottom-6 text-xs uppercase tracking-widest text-slate-500">CGPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-10" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="p-3 bg-purple-500/10 rounded-2xl border border-purple-500/20 text-2xl">🧬</div>
+                    <span class="text-3xl font-bold text-purple-400">78%</span>
+                </div>
+                <h4 class="text-xl font-bold mb-1">HSC (12th Standard)</h4>
+                <p class="text-sm text-cyan-400 font-semibold mb-2">Science Stream • 2022</p>
+                <p class="text-slate-400 text-sm">Taxshila Science Vidyalay, Prantij</p>
+            </div>
+
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-10" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="p-3 bg-cyan-500/10 rounded-2xl border border-cyan-500/20 text-2xl">📚</div>
+                    <span class="text-3xl font-bold text-cyan-400">85%</span>
+                </div>
+                <h4 class="text-xl font-bold mb-1">SSC (10th Standard)</h4>
+                <p class="text-sm text-cyan-400 font-semibold mb-2">State Board • 2020</p>
+                <p class="text-slate-400 text-sm">Taxshila Vidyalay, Prantij</p>
+            </div>
+            
+            <div class="md:col-span-2 bento-card rounded-[2.5rem] p-6 md:px-10 flex flex-col md:flex-row justify-between items-center opacity-80 hover:opacity-100 transition-opacity gap-4 md:gap-0" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center gap-4 w-full md:w-auto">
+                    <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lg shrink-0">🌱</div>
+                    <div>
+                        <h5 class="font-bold">Primary Education (1-9 Standard)</h5>
+                        <p class="text-xs text-slate-400">Our Own Vidyavihar, Prantij</p>
+                    </div>
+                </div>
+                <div class="text-left md:text-right w-full md:w-auto pl-14 md:pl-0">
+                    <span class="block text-sm font-bold tracking-widest text-cyan-400">2010 - 2019</span>
+                    <span class="text-[10px] text-slate-400">Focus on Mathematics & Science</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="skills" class="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-bold tracking-[0.5em] uppercase mb-12 opacity-50 text-center md:text-left" data-aos="fade-right">_Arsenal</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-10" data-aos="fade-up">
+                <h4 class="text-xs font-bold uppercase tracking-widest mb-8 opacity-40 text-cyan-400">Development Stack</h4>
+                <div class="flex flex-wrap gap-x-6 gap-y-4">
+                    <span class="skill-pill text-2xl md:text-3xl font-bold">React</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold text-slate-500">Node.js</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold">Express</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold text-slate-500">MongoDB</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold">Tailwind</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold text-slate-500">JavaScript</span>
+                </div>
+            </div>
+
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-10" data-aos="fade-up" data-aos-delay="100">
+                <h4 class="text-xs font-bold uppercase tracking-widest mb-8 opacity-40 text-purple-400">Data & AI Engineering</h4>
+                <div class="flex flex-wrap gap-x-6 gap-y-4">
+                    <span class="skill-pill text-2xl md:text-3xl font-bold">Python</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold text-slate-500">Pandas</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold">NumPy</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold text-slate-500">Matplotlib</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold">MySQL</span>
+                    <span class="skill-pill text-2xl md:text-3xl font-bold text-slate-500">TensorFlow</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-16 flex flex-col justify-center" data-aos="fade-right">
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tighter mb-6">LET'S <br> <span class="text-cyan-400">CONNECT.</span></h2>
+                <p class="text-slate-400 text-lg mb-8">
+                    I'm currently looking for internships and opportunities in Full Stack Development and AI Engineering.
+                </p>
+                <div class="space-y-4">
+                    <a href="mailto:pythonmission2024@gmail.com" class="flex items-center gap-3 text-lg md:text-xl font-bold hover:text-cyan-400 transition break-all md:break-normal">
+                        <span>📧</span> pythonmission2024@gmail.com
+                    </a>
+                    <a href="#" class="flex items-center gap-3 text-lg md:text-xl font-bold hover:text-cyan-400 transition">
+                        <span>🔗</span> linkedin.com/in/manank
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-12" data-aos="fade-left">
+                <form id="contactForm" class="space-y-4">
+                    <input type="hidden" name="_subject" value="New Portfolio Contact!">
+                    <input type="hidden" name="_captcha" value="false">
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Name</label>
+                        <input type="text" name="name" required class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-white focus:border-cyan-400 focus:outline-none transition" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Email</label>
+                        <input type="email" name="email" required class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-white focus:border-cyan-400 focus:outline-none transition" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-slate-500 mb-2">Message</label>
+                        <textarea name="message" rows="4" required class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-white focus:border-cyan-400 focus:outline-none transition" placeholder="Project details..."></textarea>
+                    </div>
+                    <button type="submit" class="cyber-button w-full py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold rounded-xl shadow-lg mt-4">
+                        Send Transmission
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center opacity-30">
+        <p class="text-[10px] tracking-[1em] uppercase">Built with Precision // Station: Ahmedabad</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('translate-x-full');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+        });
+
+        // Contact Form Logic (AJAX with FormSubmit)
+        const form = document.getElementById('contactForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const button = form.querySelector('button');
+                const originalText = button.innerText;
+                const formData = new FormData(form);
+
+                // 1. Loading State
+                button.disabled = true;
+                button.innerText = "Encrypting & Transmitting...";
+                button.classList.add('opacity-75');
+
+                // 2. Send Data to FormSubmit (Sends to pythonmission2024@gmail.com)
+                fetch("https://formsubmit.co/ajax/pythonmission2024@gmail.com", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // 3. Success State
+                    button.innerText = "Transmission Successful 🚀";
+                    button.classList.remove('from-cyan-500', 'to-purple-500');
+                    button.classList.add('from-green-500', 'to-emerald-500', 'opacity-100');
+                    form.reset();
+                    
+                    setTimeout(() => {
+                        button.innerText = originalText;
+                        button.disabled = false;
+                        button.classList.remove('from-green-500', 'to-emerald-500');
+                        button.classList.add('from-cyan-500', 'to-purple-500');
+                    }, 5000);
+                })
+                .catch(error => {
+                    // 4. Error State
+                    console.error('Error:', error);
+                    button.innerText = "Transmission Failed ❌";
+                    button.classList.add('bg-red-500');
+                    
+                    setTimeout(() => {
+                        button.innerText = originalText;
+                        button.disabled = false;
+                        button.classList.remove('bg-red-500');
+                    }, 3000);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
